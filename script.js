@@ -50,7 +50,7 @@ function unlockOptButtons () {
 }
 function displayScore() {
     if (player_score == 5) {
-        scores.textContent = 'You Won!! 🤩 by ' + player_score + ' - ' + comp_score;
+        scores.textContent = 'You Won 🤩 by ' + player_score + ' - ' + comp_score;
         panel.appendChild(scores);
         player_score = 0;
         comp_score = 0;
@@ -64,7 +64,7 @@ function displayScore() {
         lockOptButtons();
     }
     else {
-        scores.textContent = 'Player Score: ' + player_score + ', Comp Score: ' + comp_score;
+        scores.textContent =  player_score + ' '+'-  you   VS  comp -'+ ' '+comp_score;
         panel.appendChild(scores);
     }
 }
@@ -77,6 +77,7 @@ function playround(string) {
         if (computerselection == "Scissor") {
             player_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Rock, comp chose Scissor, Rock beats Scissor';
             record.appendChild(result);
             container.appendChild(record);
@@ -87,6 +88,7 @@ function playround(string) {
         if (computerselection == "Paper") {
             comp_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Rock, comp chose Paper, Paper beats Rock';
             record.appendChild(result);
             container.appendChild(record);
@@ -96,6 +98,7 @@ function playround(string) {
         }
         if (computerselection == "Rock") {
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Rock, comp chose Rock, Its a tie!';
             record.appendChild(result);
             container.appendChild(record);
@@ -108,6 +111,7 @@ function playround(string) {
         if (computerselection == "Rock") {
             comp_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Scissor, comp chose Rock, Rock beats Scissor';
             record.appendChild(result);
             container.appendChild(record);
@@ -118,6 +122,7 @@ function playround(string) {
         if (computerselection == "Paper") {
             player_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Scissor, comp chose Paper, Scissor beats Paper';
             record.appendChild(result);
             container.appendChild(record);
@@ -127,6 +132,7 @@ function playround(string) {
         }
         if (computerselection == "Scissor") {
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Scissor, comp chose Scissor, Its a tie!';
             record.appendChild(result);
             container.appendChild(record);
@@ -139,6 +145,7 @@ function playround(string) {
         if (computerselection == "Rock") {
             player_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Paper, comp chose Rock, Paper beats Rock';
             record.appendChild(result);
             container.appendChild(record);
@@ -149,6 +156,7 @@ function playround(string) {
         if (computerselection == "Scissor") {
             comp_score++;
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
             result.textContent = 'You chose Paper, comp chose Scissor, Scissor beats Paper';
             record.appendChild(result);
             container.appendChild(record);
@@ -158,6 +166,7 @@ function playround(string) {
         }
         if (computerselection == "Paper") {
             const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';;
             result.textContent = 'You chose Paper, comp chose Paper, Its a tie!';
             record.appendChild(result);
             container.appendChild(record);

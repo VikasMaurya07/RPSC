@@ -1,105 +1,179 @@
 // getting computer choice
+const container = document.querySelector('#container');
+const playButton = document.querySelector('#play');
+const rock = document.querySelector('#Rock');
+const paper = document.querySelector('#Paper');
+const scissor = document.querySelector('#Scissor');
+const panel = document.querySelector('#score');
+const scores = document.createElement('p');
+const record = document.createElement('div');
+playButton.addEventListener('click',play);
+rock.addEventListener('click', function () {
+    playround('Rock');
+});
+paper.addEventListener('click', function () {
+    playround('Paper');
+});
+scissor.addEventListener('click', function () {
+    playround('Scissor');
+});
+let player_score = 0;
+let comp_score = 0;
 function getcomputerchoice() {
-    let x  = Math.floor(1 + Math.random()*2.99);
-    if(x == 1) {
+    let x = Math.floor(1 + Math.random() * 2.99);
+    if (x == 1) {
         return "Rock";
     }
-    if(x == 2) {
+    if (x == 2) {
         return "Paper";
     }
-    if(x == 3) {
+    if (x == 3) {
         return "Scissor";
     }
 }
-// getting user input
-function userinput() {
-    const user_string = prompt("Enter your choice (rock, paper or scissor):");
-    return user_string.charAt(0).toUpperCase() + user_string.slice(1).toLowerCase();
-}
-// gameplay
-function playround() {
+function play () {
+    unlockOptButtons();
+    record.innerHTML = '';
     player_score = 0;
     comp_score = 0;
-    while (player_score!=5&&comp_score!=5){
-        playerselection = userinput();
-        computerselection = getcomputerchoice();
-        if(playerselection == "Rock") {
-            console.log("You chose Rock");
-            if (computerselection == "Scissor") {
-                console.log("Comp chose Scissor");
-                player_score++;
-                console.log("Rock beats Scissors!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Paper") {
-                console.log("Comp chose Paper");
-                comp_score++;
-                console.log("Paper beats rock!");
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Rock"){
-                console.log("Comp chose Rock");
-                console.log("It's a tie!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-        }
-        if(playerselection == "Scissor") {
-            console.log("You chose Scissor");
-            if (computerselection == "Rock") {
-                console.log("Comp chose Rock");
-                comp_score++;
-                console.log("Rock beats Scissors!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Paper") {
-                console.log("Comp chose Paper");
-                player_score++;
-                console.log("Scissor beats paper!");
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Scissor") {
-                console.log("Comp chose Scissor");
-                console.log("It's a tie!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-        }
-        if(playerselection == "Paper") {
-            console.log("You chose Paper");
-            if (computerselection == "Rock") {
-                console.log("Comp chose Rock");
-                player_score++;
-                console.log("Paper beats Rock!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Scissor") {
-                console.log("Comp chose Scissor");
-                comp_score++;
-                console.log("Scissor beats paper!");
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-            if (computerselection == "Paper") {
-                console.log("Comp chose Paper");
-                console.log("It's a tie!")
-                console.log("Player:",player_score);
-                console.log("Computer:",comp_score);
-            }
-        }
+    displayScore();
+}
+function lockOptButtons () {
+    rock.disabled = true;
+    paper.disabled = true;
+    scissor.disabled = true;
+}
+function unlockOptButtons () {
+    rock.disabled = false;
+    paper.disabled = false;
+    scissor.disabled = false;
+}
+function displayScore() {
+    if (player_score == 5) {
+        scores.textContent = 'You Won 🤩 by ' + player_score + ' - ' + comp_score;
+        panel.appendChild(scores);
+        player_score = 0;
+        comp_score = 0;
+        lockOptButtons();
     }
-    if (player_score==5) {
-        console.log("You Win");
+    else if (comp_score == 5) {
+        scores.textContent = 'You Lost 🫠 by ' + player_score + ' - ' + comp_score;
+        panel.appendChild(scores);
+        player_score = 0;
+        comp_score = 0;
+        lockOptButtons();
     }
     else {
-        console.log("Comp wins");
+        scores.textContent =  player_score + ' '+'-  you   VS  comp -'+ ' '+comp_score;
+        panel.appendChild(scores);
     }
-    playround();
 }
-playround();
+// gameplay
+function playround(string) {
+    displayScore();
+    playerselection = string;
+    computerselection = getcomputerchoice();
+    if (playerselection == "Rock") {
+        if (computerselection == "Scissor") {
+            player_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Rock, comp chose Scissor, Rock beats Scissor';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Paper") {
+            comp_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Rock, comp chose Paper, Paper beats Rock';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Rock") {
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Rock, comp chose Rock, Its a tie!';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+    }
+    if (playerselection == "Scissor") {
+        if (computerselection == "Rock") {
+            comp_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Scissor, comp chose Rock, Rock beats Scissor';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Paper") {
+            player_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Scissor, comp chose Paper, Scissor beats Paper';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Scissor") {
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Scissor, comp chose Scissor, Its a tie!';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+    }
+    if (playerselection == "Paper") {
+        if (computerselection == "Rock") {
+            player_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Paper, comp chose Rock, Paper beats Rock';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Scissor") {
+            comp_score++;
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';
+            result.textContent = 'You chose Paper, comp chose Scissor, Scissor beats Paper';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+        if (computerselection == "Paper") {
+            const result = document.createElement('p');
+            result.style.cssText = 'margin:10px; padding:10px; background-color:green';;
+            result.textContent = 'You chose Paper, comp chose Paper, Its a tie!';
+            record.appendChild(result);
+            container.appendChild(record);
+            displayScore();
+            console.log("Player:", player_score);
+            console.log("Computer:", comp_score);
+        }
+    }
+}
 
